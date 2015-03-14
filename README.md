@@ -1,2 +1,2 @@
 # python
-This rpostiory contains some of the assignment solutions I have built for couseera Python programming course.
+This repostiory contains some of the assignment solutions I have built for coursera Python programming course.
