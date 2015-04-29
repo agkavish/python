@@ -9,6 +9,7 @@ secret_number = 0
 range_low = 0
 range_high = 100
 num_guesses_allowed = 0;
+message = ''
 # helper function to start and restart the game
 def new_game():
     # initialize global variables used in your code here
@@ -41,32 +42,40 @@ def range1000():
     
 def input_guess(guess):
     # main game logic goes here	
-    global secret_number, num_guesses_allowed
+    global secret_number, num_guesses_allowed, message
     guess_number = int(guess)
     print "Guess was " , guess_number
     
     if (secret_number > guess_number):
         print "Higher"
+        message = 'Higher'
         num_guesses_allowed = num_guesses_allowed -1
         print "Remaining guesses available ", num_guesses_allowed
     elif (secret_number < guess_number):
         print "Lower"
+        message = 'Lower'
         num_guesses_allowed = num_guesses_allowed -1
         print "Remaining guesses available ", num_guesses_allowed
     else :
         print "Correct"
+        message = 'Correct'
         new_game()
         
     if(num_guesses_allowed <= 0):
-        print "You have exhausted all chances, starting a new game"
+        print "You have tried all chances, starting a new game"
+        message = str(secret_number)
         new_game()
   
+def draw(canvas):
+    canvas.draw_text('Number in range ' + str(range_low) + '-' + str(range_high), [5, 50], 14, 'orange')
+    canvas.draw_text('Number of guesess available ' + str(num_guesses_allowed), [5, 100], 14, 'orange')
+    canvas.draw_text('Secret number is ' + message, [5, 150], 14, 'orange')
 
     
 # create frame
 frame = simplegui.create_frame('Guess The Number', 200, 200)
-
 # register event handlers for control elements and start frame
+frame.set_draw_handler(draw)
 inp = frame.add_input('My Guess', input_guess, 50)
 range100_button = frame.add_button('1..100', range100)
 range1000_button = frame.add_button('1..1000', range1000)
